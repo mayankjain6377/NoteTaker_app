@@ -1,5 +1,5 @@
 # Use an official Maven image to build the project
-FROM maven:3.8.6-openjdk-11 as build
+FROM maven:3.8.6-openjdk-22 as build
 
 # Set the working directory in the container
 WORKDIR /app
@@ -12,7 +12,7 @@ COPY src ./src
 RUN mvn clean package
 
 # Use a lightweight Java image for the runtime
-FROM tomcat:10.1-jdk11-corretto
+FROM tomcat:10.1-jdk22-corretto
 
 # Copy the built WAR file to the Tomcat webapps directory
 COPY --from=build /app/target/Notetaker.war /usr/local/tomcat/webapps/Notetaker.war
